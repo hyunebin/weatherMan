@@ -1,0 +1,22 @@
+spring:
+    datasource:
+        url: jdbc:mariadb://localhost:3306/diary
+        driver-class-name: org.mariadb.jdbc.Driver
+        username: user_diary
+        password: 1234
+
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+    mvc:
+        path match:
+            matching-strategy: ant_path_matcher
+
+
+openWeatherMap :
+    key: 27a33bd90fd310111ea89decca81e65c
+
+logging:
+    config: classpath:logback-spring.xml
