@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter

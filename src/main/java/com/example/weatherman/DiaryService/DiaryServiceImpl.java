@@ -65,16 +65,17 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional(readOnly = true)
     public List<DiaryOutPutDto.Info> getDiaryList(LocalDate startDay, LocalDate endDay) {
-        Optional<List<Diary>> optionalDiaryList = diaryRepository.findByDateBetween(startDay,endDay);
-        List<Diary> diary = optionalDiaryList.orElseThrow(()-> new DiaryException(DiaryErrorCode.DIARY_NOT_EXISTS));
+        List<Diary> diary = diaryRepository
+                .findByDateBetween(startDay,endDay)
+                .orElseThrow(()-> new DiaryException(DiaryErrorCode.DIARY_NOT_EXISTS));
         return DiaryOutPutDto.Info.of(diary);
     }
 
     @Override
     @Transactional(readOnly = true)
     public DiaryOutPutDto.Info getDiary(LocalDate date) {
-        Optional<Diary> optionalDiary = diaryRepository.findByDate(date);
-        Diary diary = optionalDiary.orElseThrow(()-> new DiaryException(DiaryErrorCode.DIARY_NOT_EXISTS));
+        Diary diary = diaryRepository.findByDate(date).orElseThrow(
+                ()-> new DiaryException(DiaryErrorCode.DIARY_NOT_EXISTS));
         return DiaryOutPutDto.Info.of(diary);
     }
 
@@ -154,7 +155,6 @@ public class DiaryServiceImpl implements DiaryService {
     private String getWeatherString() {
         String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=" + key;
 
-
         try {
             URL url = new URL(urlAPI);
 
@@ -176,6 +176,8 @@ public class DiaryServiceImpl implements DiaryService {
             while ((input = bufferedReader.readLine()) != null) {
                 response.append(input);
             }
+
+            System.out.println(response.toString());
 
             bufferedReader.close();
             return response.toString();

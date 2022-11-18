@@ -2,6 +2,7 @@ package com.example.weatherman.DTO;
 
 
 import com.example.weatherman.DiaryRepository.entity.Diary;
+import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDate;
@@ -14,11 +15,17 @@ public class DiaryOutPutDto {
     public static class Info{
         private String text;
         private LocalDate localDateTime;
+        private String weather;
+        private String icon;
+        private Double temperature;
 
 
         public static DiaryOutPutDto.Info of(Diary diary){
             return Info.builder()
                     .localDateTime(diary.getDate())
+                    .temperature(diary.getTemperature())
+                    .icon(diary.getIcon())
+                    .weather(diary.getWeather())
                     .text(diary.getText())
                     .build();
         }
